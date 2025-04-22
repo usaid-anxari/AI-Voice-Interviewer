@@ -8,7 +8,6 @@ import DisplayTechIcon from "./DisplayTechIcon";
 
 const InterviewCard = ({
   interviewId,
-  userId,
   role,
   type,
   techstack,
