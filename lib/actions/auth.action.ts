@@ -28,7 +28,7 @@ export async function signUp(params: SignUpParams) {
       success: true,
       message: "Account created successfully. Please Sign in.",
     };
-  } catch (e:any) {
+  } catch (e: any) {
     console.error("Error creating a user ", e);
 
     if (e.code === "auth/email-already-exists") {
@@ -84,6 +84,13 @@ export async function setSessionCookie(idToken: string) {
     sameSite: "lax",
   });
 }
+export async function signOut(){
+    const clearCookie = await cookies();
+
+    clearCookie.delete("session",)
+    
+
+}
 
 export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();
@@ -110,8 +117,41 @@ export async function getCurrentUser(): Promise<User | null> {
   }
 }
 
+
 export async function isAuthenticated() {
   const user = await getCurrentUser();
 
   return !!user;
 }
+
+// export async function getInterviewByUserId(
+//   userId: string
+// ): Promise<Interview[] | null> {
+//   const interview = await db
+//     .collection("interview")
+//     .where("userId", "==", userId)
+//     .orderBy("createdAt", "desc")
+//     .get();
+//   return interview.docs.map((doc) => ({
+//     id: doc.id,
+//     ...doc.data(),
+//   })) as Interview[];
+// }
+
+// export async function getLatestInterview(
+//   params: GetLatestInterviewsParams
+// ): Promise<Interview[] | null> {
+//   const { userId, limit = 20 } = params;
+
+//   const interview = await db
+//     .collection("interview")
+//     .orderBy("createdAt", "desc")
+//     .where("finalized", "==", true)
+//     .where('userId','!=',userId)
+//     .limit(limit)
+//     .get();
+//   return interview.docs.map((doc) => ({
+//     id: doc.id,
+//     ...doc.data(),
+//   })) as Interview[];
+// }
